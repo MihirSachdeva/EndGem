@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>EndGem</title>
+  <meta name="theme-color" content="#f8f9fa">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <link href="//db.onlinewebfonts.com/c/75135d5bab4eade37ad4d20803c7ffbd?family=Modern+No.20" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i">
+  <script src="https://kit.fontawesome.com/1f242f6e0e.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <p>Courses</p>
+    <hr width="70%" style="color: #818181; border-bottom: solid 2px #818181;">
+    <a href="/CHN_104"><i class="fas fa-book"></i> CHN-104</a>
+    <a href="/EEN_112"><i class="fas fa-book"></i> EEN-112</a>
+    <a href="/CHN_102"><i class="fas fa-book"></i> CHN-102</a>
+  </div>
+
+  <div id="myUser" class="overlay">
+    <a href="javascript:void(0)" class="closebtnOverlay" onclick="closeOverlayUser()">&times;</a>
+    <div class="overlay-content">
+      <img src="images/userIcon.png" style="border-radius: 100%; margin: 30px;">
+      <p>Mihir Sachdeva</p>
+      <p>B.Tech CH</p>
+      <p>Second Semester</p>
+      <a href="#">Logout</a>
+    </div>
+  </div>
+
+
+  <div id="myNav" class="overlay">
+    <a href="javascript:void(0)" class="closebtnOverlay" onclick="closeOverlay()">&times;</a>
+    <div class="overlay-content">
+      <p> <%= courseName %> Top Gems</p>
+      <hr width="47%" style="color: rgb(220,220,220); border-bottom: solid 2px rgb(220,220,220);">
+      <div class="container">
+        <table class="table leaderboard">
+          <thead>
+            <tr>
+              <th scope="col">File Name</th>
+              <th scope="col" style="width: 15%;">Downloads</th>
+              <th scope="col" style="width: 5%;"></th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <% var i = 0;  %>
+            <% filesArray.forEach(function(file) { i++; if(i==1) { %>
+            <tr>
+              <td><i class="fas fa-file-pdf"></i> &nbsp; <%= file.name %> &nbsp;💎</td>
+              <% } else { %>
+              <td><i class="fas fa-file-pdf"></i> &nbsp; <%= file.name %> </td>
+              <% } %>
+              <td><%= file.numberOfDownloads %></td>
+              <td><a href="/<%= courseName %>/<%= file.name %>" onclick="refreshLeaderboard()"><i class="fas fa-file-download"></i></a></td>
+            </tr>
+            <% }); %>
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div id="page-container">
+    <div id="content-wrap">
+
+
+      <nav class="navbar navbar-lg navbar-light bg-light">
+        <span data-toggle="tooltip" data-placement="bottom" title="Courses" style="font-size:30px;cursor:pointer; text-shadow: 1px 1px 2px gray;" onclick="openNav()">&#9776</span> <!-- openNav opens the side navbar -->
+        <a class="navbar-brand" href="#">EndGem</a>
+        <div class="btn-group" role="group">
+          <span data-toggle="tooltip" data-placement="bottom" title="Add material" class="nav-link topnav-right btn btn-secondary" style="font-size:30px;cursor:pointer; text-shadow: 1px 1px 2px gray;">
+            <a href="/add"><i class="fas fa-plus"></i></a>
+          </span>
+          <span data-toggle="tooltip" data-placement="bottom" title="Top Gems" class="nav-link topnav-right btn btn-secondary" style="font-size:30px;cursor:pointer; text-shadow: 1px 1px 2px gray;" onclick="openOverlay()"><i
+              class="fas fa-gem"></i></span>
+          <span data-toggle="tooltip" data-placement="bottom" title="User" class="nav-link topnav-right btn btn-secondary" style="font-size:30px;cursor:pointer; text-shadow: 1px 1px 2px gray;" onclick="openOverlayUser()"><i
+              class="fas fa-user"></i></span>
+        </div>
+      </nav>
+
+
+      <div id="grad1">
+        <div class="container">
+          <p id="course-name"> <%= courseName %> </p>
+          <p id="course-full">All PDF files for <%= courseName %> </p>
+        </div>
+      </div>
+
+
+      <div class="files-table">
+        <div class="container">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Date of Upload</th>
+                <th scope="col">Download</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <%  courseObject.forEach(function(file) { %>
+              <tr>
+                <td><i class="fas fa-file-pdf"></i> &nbsp; <%= file.name %></td>
+                <td> <%= file.date %> </td>
+                <td><a href="/<%= courseName %>/<%= file.name %>"><i class="fas fa-file-download"></i></a></td>
+              </tr>
+              <%  }); %>
+
+
+            </tbody>
+          </table>
+
+        </div>
+
+      </div>
+
+
+
+
+
+    </div>
+    <div id="footer-wrapper">
+      <div class="footer">
+        <a target="_blank" class="footer-link" href="https://www.facebook.com/sachdeva.mihir"><i class="fab fa-facebook"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a target="_blank" class="footer-link" href="https://github.com/MihirSachdeva"><i class="fab fa-github"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a target="_blank" class="footer-link" href="https://www.instagram.com/mihirsachdeva_/"><i class="fab fa-instagram"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a target="_blank" class="footer-link" href="https://www.linkedin.com/in/mihirsachdeva/"><i class="fab fa-linkedin"></i></a>
+        <p class="copyright">Made with ❤️ by Mihir Sachdeva</p>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+  <script type="text/javascript">
+    var randomInt = Math.floor(Math.random() * 5);
+    var gradients = ["gradient1", "gradient2", "gradient3", "gradient4", "gradient5"]
+    var randomGradient = gradients[randomInt];
+    $("body").addClass(randomGradient);
+
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "26%";
+      document.body.style.backgroundColor = "rgba(0,0,0,0.3)";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+      document.body.style.backgroundColor = "white";
+    }
+
+
+    function openOverlay() {
+      document.getElementById("myNav").style.width = "100%";
+    }
+
+    function closeOverlay() {
+      document.getElementById("myNav").style.width = "0%";
+    }
+
+    function openOverlayUser() {
+      document.getElementById("myUser").style.width = "100%";
+    }
+
+    function closeOverlayUser() {
+      document.getElementById("myUser").style.width = "0%";
+    }
+
+
+  </script>
+
+</body>
+
+</html>
